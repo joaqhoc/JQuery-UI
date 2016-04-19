@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html"; charset=utf-8"/> 
+  <title>jQuery UI - Auto Completar</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+  <script>
+  $(function() {
+    var disponbileetiqueta = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+	  "Html",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#etiqueta" ).autocomplete({
+      source: disponbileetiqueta
+    });
+  });
+  </script>
+</head>
+<body align="center"> <!-- Centrar el cuerpo -->
+<h1>Prueba Auto Completar en JQuery UI</h1>
+<br>
+<hr color="orange"><!-- Separador color Naranja -->
+<br>
+<div class="ui-widget">
+  <label for="etiqueta">Etiquetas: </label>
+  <input id="etiqueta">
+</div>
+ 
+ 
+</body>
+</html>
