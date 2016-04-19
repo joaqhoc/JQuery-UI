@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html"; charset=utf-8"/> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI - Circulo Color</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+  <script>
+  $(function() {
+    var circulo = $( "#circulo" );
+ 
+    $( "#radio" ).selectmenu({
+      change: function( event, data ) {
+        circulo.css({
+          width: data.item.value,
+          height: data.item.value
+        });
+      }
+     });
+ 
+    $( "#color" ).selectmenu({
+       change: function( event, data ) {
+         circulo.css( "background", data.item.value );
+       }
+     });
+  });
+  </script>
+  <style>
+    fieldset {
+      border: 0;
+      margin-left: 300px;
+    }
+    label {
+      display: block;
+      margin: 20px 0 0 0;
+    }
+    select {
+      width: 200px;
+    }
+ 
+    #circulo {
+      float: left;
+      background: yellow;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+ 
+<div class="demo">
+ 
+<form action="#">
+ 
+  <div id="circulo"></div>
+ 
+  <fieldset>
+    <label for="radio">Radio del Circulo</label>
+    <select name="radio" id="radio">
+      <option value="50">50px</option>
+      <option value="100">100px</option>
+      <option value="150" selected="selected">150px</option>
+      <option value="200">200px</option>
+      <option value="250">250px</option>
+    </select>
+ 
+    <label for="color">Color del Circulo</label>
+    <select name="color" id="color">
+      <option value="black">Negro</option>
+      <option value="red">Rojo</option>
+      <option value="yellow" selected="selected">Amarillo</option>
+      <option value="blue">Azul</option>
+      <option value="green">Verde</option>
+    </select>
+  </fieldset>
+ 
+</form>
+ 
+</div>
+ 
+ 
+</body>
+</html>
