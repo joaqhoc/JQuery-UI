@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html"; charset=utf-8"/> 
+  <title>jQuery UI - Reproductor de Video </title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+  <style>
+  .reproductor {
+    width: 560px;
+    height: 315px;
+    border: 2px groove gray;
+    background: #ccc;
+    text-align: center;
+    line-height: 300px;
+  }
+  .ui-tooltip {
+    border: 1px solid white;
+    background: #111;
+    color: white;
+  }
+  .ui-menu {
+    position: absolute;
+  }
+  .set {
+    display: inline-block;
+  }
+  .notificacion {
+    position: absolute;
+    display: inline-block;
+    font-size: 2em;
+    padding: .5em;
+    box-shadow: 2px 2px 5px -2px rgba(0,0,0,0.5);
+  }
+  
+  A:link {
+		text-decoration: none;
+		color: green;
+    }
+  </style>
+  <script>
+  $(function() {
+    function notify( input ) {
+      var msg = "Seleccionado " + $.trim( input.data( "tooltip-title" ) || input.text() );
+      $( "<div>" )
+        .appendTo( document.body )
+        .text( msg )
+        .addClass( "notificacion ui-state-default ui-corner-bottom" )
+        .position({
+          my: "center top",
+          at: "center top",
+          of: window
+        })
+        .show({
+          effect: "blind"
+        })
+        .delay( 1000 )
+        .hide({
+          effect: "blind",
+          duration: "slow"
+        }, function() {
+          $( this ).remove();
+        });
+    }
+ 
+    $( "button" ).each(function() {
+      var button = $( this ).button({
+        icons: {
+          primary: $( this ).data( "icon" )
+        },
+        text: !!$( this ).attr( "title" )
+      });
+      button.not( ".menu" ).click(function() {
+        notify( button );
+      });
+    });
+    $( ".set" ).buttonset({
+      items: "button"
+    });
+ 
+    $( "button.menu" )
+      .click(function() {
+        $( document ).tooltip( "close", { currentTarget: this });
+        var menu = $( this ).next().show().position({
+          my: "left top",
+          at: "left bottom",
+          of: this
+        });
+        $( document ).one( "click", function() {
+          menu.hide();
+        });
+        return false;
+      })
+      .next()
+        .hide()
+        .menu({
+          Seleccionado: function( event, ui ) {
+            notify( ui.item );
+          }
+        });
+ 
+    $( document ).tooltip({
+      position: {
+        my: "center top",
+        at: "center bottom+5",
+      },
+      show: {
+        duration: "fast"
+      },
+      hide: {
+        effect: "hide"
+      }
+    });
+  });
+  </script>
+</head>
+<body> <!-- Centrar el cuerpo -->
+<h1>Prueba Reproductor de Vídeo <a href="https://jqueryui.com">JQuery UI<a></h1>
+<br>
+<hr color="orange"><!-- Separador color Naranja -->
+<br>
+
+<!-- Aqui el codigo HTML o IFRAME del video -->
+<div class="reproductor"><iframe width="560" height="315" src="https://www.youtube.com/embed/KZM9V_oEl-U" frameborder="0" allowfullscreen></iframe></div>
+
+<div class="tools">
+  <span class="set">
+    <button data-icon="ui-icon-circle-arrow-n" title="Me gusta">Me gusta</button>
+    <button data-icon="ui-icon-circle-arrow-s">No me gusta</button>
+  </span>
+  <div class="set">
+    <button data-icon="ui-icon-circle-plus" title="Agregar ver más tarde">Agregar a</button>
+    <button class="menu" data-icon="ui-icon-triangle-1-s">Agregar a lista de reproducción</button>
+    <ul>
+      <li>Favoritos</li>
+      <li>Divertidos</li>
+      <li></li>
+      <li>Nueva Lista...</li>
+    </ul>
+  </div>
+  <button title="Compartir Video">Compartir</button>
+  <button data-icon="ui-icon-alert">Marcar como Inapropiado</button>
+</div>
+ 
+ 
+</body>
+</html>
