@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html"; charset=utf-8"/> 
+  <title>jQuery UI - Anterior/Siguiente Imagen</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+  <style>
+  body {
+    margin: 0;
+  }
+  #contenedor {
+    overflow: hidden;
+    position: relative;
+    height: 400px;
+  }
+ 
+  img {
+    position: absolute;
+  }
+  
+  A:link {
+		text-decoration: none;
+		color: green;
+	}
+  </style>
+  <script>
+  $(function() {
+    function left( element, using ) {
+      element.position({
+        my: "right middle",
+        at: "left+25 middle",
+        of: "#contenedor",
+        collision: "none",
+        using: using
+      });
+    }
+    function right( element, using ) {
+      element.position({
+        my: "left middle",
+        at: "right-25 middle",
+        of: "#contenedor",
+        collision: "none",
+        using: using
+      });
+    }
+    function center( element, using ) {
+      element.position({
+        my: "center middle",
+        at: "center middle",
+        of: "#contenedor",
+        using: using
+      });
+    }
+ 
+    left( $( "img:eq(0)" ) );
+    center( $( "img:eq(1)" ) );
+    right( $( "img:eq(2)" ) );
+ 
+    function animate( to ) {
+      $( this ).stop( true, false ).animate( to );
+    }
+    function siguiente( event ) {
+      event.preventDefault();
+      center( $( "img:eq(2)" ), animate );
+      left( $( "img:eq(1)" ), animate );
+      right( $( "img:eq(0)" ).appendTo( "#contenedor" ) );
+    }
+    function anterior( event ) {
+      event.preventDefault();
+      center( $( "img:eq(0)" ), animate );
+      right( $( "img:eq(1)" ), animate );
+      left( $( "img:eq(2)" ).prependTo( "#contenedor" ) );
+    }
+    $( "#anterior" ).click( anterior );
+    $( "#siguiente" ).click( siguiente );
+ 
+    $( "img" ).click(function( event ) {
+      $( "img" ).index( this ) === 0 ? anterior( event ) : siguiente( event );
+    });
+ 
+    $( window ).resize(function() {
+      left( $( "img:eq(0)" ), animate );
+      center( $( "img:eq(1)" ), animate );
+      right( $( "img:eq(2)" ), animate );
+    });
+  });
+  </script>
+</head>
+<body align="center"> <!-- Centrar el cuerpo -->
+<h1>Prueba Anterior/Siguiente Imagen <a href="https://jqueryui.com">JQuery UI<a></h1>
+<br>
+<hr color="orange"><!-- Separador color Naranja -->
+<br>
+ 
+<div id="contenedor">
+  <img src="https://jqueryui.com/resources/demos/position/images/earth.jpg" width="458" height="308" alt="earth">
+  <img src="https://jqueryui.com/resources/demos/position/images/flight.jpg" width="512" height="307" alt="flight">
+  <img src="https://jqueryui.com/resources/demos/position/images/rocket.jpg" width="300" height="353" alt="rocket">
+ 
+  <a id="anterior" href="#">Anterior</a> | 
+  <a id="siguiente" href="#">Siguiente</a>
+</div>
+ 
+ 
+</body>
+</html>
